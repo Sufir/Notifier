@@ -1,0 +1,42 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Notifier"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        x:Class="Notifier.MainWindow"
+        mc:Ignorable="d"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        Title="Напоминания" Height="560" Width="450" Icon="Resources/MainIcon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!-- in order to declare a NotifyIcon, all you need is the namespace declaration (see above on line 5) and a single line -->
+        <tb:TaskbarIcon x:Name="MyNotifyIcon" ToolTipText="Правый щелчок для открытия меню, двойной для добавления события..." IconSource="Resources/MainIcon.ico" Grid.RowSpan="2" />
+
+        <xcdg:DataGridControl x:Name="noticesList" Margin="0" Grid.Row="1">
+            <xcdg:DataGridControl.Columns>
+                <xcdg:Column Title="Событие" FieldName="title" IsMainColumn="True" x:Name="noticesListTitle"/>
+                <xcdg:Column Title="Когда?" FieldName="eventDate" x:Name="noticesListDate"/>
+                <xcdg:Column Title="Повторять?" FieldName="periodicity" x:Name="noticesListOnce"/>
+            </xcdg:DataGridControl.Columns>
+        </xcdg:DataGridControl>
+        <Menu x:Name="MainMenu" Height="25" VerticalAlignment="Top" Grid.Row="0" Grid.RowSpan="2">
+            <MenuItem Header="Напоминания">
+                <MenuItem Header="Создать" x:Name="MainMenuNewNotice" Click="MainMenuNewNotice_Click"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Выход" x:Name="MainMenuExit" Click="MainMenuExit_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Правка">
+                <MenuItem Header="Изменить" x:Name="MainMenuEditNotice"></MenuItem>
+                <MenuItem Header="Удалить" x:Name="MainMenuRemoveNotice"></MenuItem>
+                <MenuItem Header="Копировать" x:Name="MainMenuCopyNotice"></MenuItem>
+            </MenuItem>
+        </Menu>
+    </Grid>
+
+</Window>
