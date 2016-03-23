@@ -22,19 +22,19 @@ namespace Notifier
     /// </summary>
     public partial class MainWindow : Window
     {
-        public BindingList<Notice> Notices;
+        //public List<Notice> Notices;
 
-        public MainWindow(List<Notice> notices)
+        public MainWindow(/*ref List<Notice> notices*/)
         {
             InitializeComponent();
-            this.Notices = new BindingList<Notice>(notices);
+            //App.Notices = notices;
 
-            this.noticesList.ItemsSource = notices;
+            this.noticesList.ItemsSource = App.Notices;
 
-            this.noticesList.Columns[3].Visible = false;
+            /*this.noticesList.Columns[3].Visible = false;
             this.noticesList.Columns[4].Visible = false;
             this.noticesList.Columns[5].Visible = false;
-            this.noticesList.Columns[6].Visible = false;
+            this.noticesList.Columns[6].Visible = false;*/
 
             /*System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
             ni.Icon = new System.Drawing.Icon("Main.ico");
@@ -49,14 +49,19 @@ namespace Notifier
         
         private void MainMenuNewNotice_Click(object sender, RoutedEventArgs e)
         {
-            Commands.ICommand Command = new CreateNewNotice();
+            Commands.ICommand Command = new CreateNewNotice(ref App.Notices);
             Command.Execute();
         }
 
         private void MainMenuExit_Click(object sender, RoutedEventArgs e)
         {
-            Commands.ICommand Command = new NotifierShutdown(Application.Current);
+            Commands.ICommand Command = new NotifierShutdown();
             Command.Execute();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            this.noticesList.Items.Refresh();
         }
     }
 }

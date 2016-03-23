@@ -11,10 +11,10 @@ namespace Notifier.Commands
     {
         private Window Window;
 
-        public CreateNewNotice()
+        public CreateNewNotice(ref List<Notice> notices)
         {
             Notice notice = new Notice();
-            this.Window = new NoticeWindow(notice);
+            this.Window = new NoticeWindow(notice/*, ref notices*/);
         }
 
         public CreateNewNotice(Window window)

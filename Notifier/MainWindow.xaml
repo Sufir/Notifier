@@ -9,7 +9,7 @@
         x:Class="Notifier.MainWindow"
         mc:Ignorable="d"
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        Title="Напоминания" Height="560" Width="450" Icon="Resources/MainIcon.ico">
+        Title="Напоминания" Height="560" Width="450" Icon="Resources/MainIcon.ico" Activated="Window_Activated">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -18,11 +18,11 @@
         <!-- in order to declare a NotifyIcon, all you need is the namespace declaration (see above on line 5) and a single line -->
         <tb:TaskbarIcon x:Name="MyNotifyIcon" ToolTipText="Правый щелчок для открытия меню, двойной для добавления события..." IconSource="Resources/MainIcon.ico" Grid.RowSpan="2" />
 
-        <xcdg:DataGridControl x:Name="noticesList" Margin="0" Grid.Row="1">
+        <xcdg:DataGridControl x:Name="noticesList" ItemsSource="{Binding App.Notices}" Margin="0" Grid.Row="1" AutoCreateColumns="False">
             <xcdg:DataGridControl.Columns>
-                <xcdg:Column Title="Событие" FieldName="title" IsMainColumn="True" x:Name="noticesListTitle"/>
-                <xcdg:Column Title="Когда?" FieldName="eventDate" x:Name="noticesListDate"/>
-                <xcdg:Column Title="Повторять?" FieldName="periodicity" x:Name="noticesListOnce"/>
+                <xcdg:Column ReadOnly="True" Title="Событие" FieldName="title" IsMainColumn="True" x:Name="noticesListTitle"/>
+                <xcdg:Column ReadOnly="True" Title="Когда?" FieldName="eventDate" x:Name="noticesListDate"/>
+                <xcdg:Column ReadOnly="True" Title="Повторять?" FieldName="periodicity" x:Name="noticesListOnce"/>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
         <Menu x:Name="MainMenu" Height="25" VerticalAlignment="Top" Grid.Row="0" Grid.RowSpan="2">

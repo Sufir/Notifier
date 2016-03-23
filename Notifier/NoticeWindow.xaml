@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:Notifier"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Name="NoticeWindow1" x:Class="Notifier.NoticeWindow"
         mc:Ignorable="d"
-        Title="Новое..." Height="350" Width="540" ResizeMode="NoResize">
+        Title="Новое..." Height="350" Width="545" ResizeMode="NoResize">
     <Window.DataContext>
         <local:Notice/>
     </Window.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -17,14 +18,17 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Column="0" x:Name="label" Content="Когда?" HorizontalAlignment="Left" Margin="10,10" VerticalAlignment="Top" Width="Auto"/>
-        <Calendar DisplayDate="{Binding Path=date}" x:Name="NoticeDate" Grid.Column="0" Margin="10,35,10,0" VerticalAlignment="Top" Height="168"/>
-        <CheckBox IsChecked="{Binding Path=sometime}" Grid.Column="0" x:Name="checkBox" Content="Во сколько?" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="Auto"/>
-        <xctk:TimePicker IsEnabled="{Binding Path=sometime}" Value="{Binding Path=date}" x:Name="NoticeTime" Grid.Column="0" Margin="10,230,10,0" VerticalAlignment="Top"/>
-        <CheckBox IsChecked="{Binding Path=repeat}" Grid.Column="0" x:Name="checkBox1" Content="Повторять каждые:" Margin="10,260,0,0" VerticalAlignment="Top" Width="126" HorizontalAlignment="Left"/>
-        <xctk:TimeSpanUpDown IsEnabled="{Binding Path=repeat}" Value="{Binding Path=interval}" x:Name="NoticeIntervel" Grid.Column="0" Margin="10,280,10,0" VerticalAlignment="Top" Maximum="1460.0:0:0" Minimum="0:1:0" DefaultValue="1:0:0" TextAlignment="Center"/>
+        <Calendar DisplayDate="{Binding Path=date, Mode=TwoWay}" x:Name="NoticeDate" Grid.Column="0" Margin="10,35,10,0" VerticalAlignment="Top" Height="168"/>
+        <CheckBox IsChecked="{Binding Path=sometime, Mode=TwoWay}" Grid.Column="0" x:Name="checkBox" Content="Во сколько?" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="Auto"/>
+        <xctk:TimePicker IsEnabled="{Binding Path=sometime}" Value="{Binding Path=date, Mode=TwoWay}" x:Name="NoticeTime" Grid.Column="0" Margin="10,230,10,0" VerticalAlignment="Top"/>
+        <CheckBox IsChecked="{Binding Path=repeat, Mode=TwoWay}" Grid.Column="0" x:Name="checkBox1" Content="Повторять каждые:" Margin="10,260,0,0" VerticalAlignment="Top" Width="126" HorizontalAlignment="Left"/>
+        <xctk:TimeSpanUpDown IsEnabled="{Binding Path=repeat}" Value="{Binding Path=interval, Mode=TwoWay}" x:Name="NoticeIntervel" Grid.Column="0" Margin="10,280,10,0" VerticalAlignment="Top" Maximum="1460.0:0:0" Minimum="0:1:0" DefaultValue="1:0:0" TextAlignment="Center"/>
 
         <ComboBox x:Name="NoticeAction" Grid.Column="1" Margin="0,42,0,0" Height="Auto" VerticalAlignment="Top" />
-        <TextBox Text="{Binding Path=title}" x:Name="NoticeTitle" Grid.Column="1" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding Path=description}" TextWrapping="Wrap" AcceptsReturn="True" x:Name="NoticeDescription" Grid.Column="1" Height="181" Margin="0,69,0,0" VerticalAlignment="Top" SpellCheck.IsEnabled="True" SelectionOpacity="4"/>
+        <TextBox Text="{Binding Path=title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="NoticeTitle" Grid.Column="1" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Path=description, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" x:Name="NoticeDescription" Grid.Column="1" Height="181" Margin="0,69,0,0" VerticalAlignment="Top" SpellCheck.IsEnabled="True" SelectionOpacity="4"/>
+
+        <Button x:Name="button" Content="Button" Grid.Column="1" Margin="246,280,0,0" Click="button_Click" Height="20" VerticalAlignment="Top"/>
+        <Button x:Name="button1" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="158,280,0,0" Width="75" Height="20" VerticalAlignment="Top" Click="button1_Click"/>
     </Grid>
 </Window>

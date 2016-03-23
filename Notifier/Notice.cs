@@ -4,16 +4,27 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
+
 
 namespace Notifier
 {
-    public class Notice
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
+    class MagicAttribute : Attribute { }
+    class NoMagicAttribute : Attribute { }
+
+    [Magic]
+    public class Notice : INotifyPropertyChanged
     {
         public String title { set; get; } = "Новое событие...";
         public String description { set; get; } = "";
         public DateTime date { set; get; } = DateTime.Now;
         public Boolean sometime { set; get; } = false;
+        public TimeSpan interval { set; get; }
+        public Boolean repeat { set; get; } = false;
+
+        [NoMagic]
         public String eventDate
         {
             get
@@ -28,8 +39,8 @@ namespace Notifier
                 }
             }
         }
-        public TimeSpan interval;
-        public Boolean repeat { set; get; } = false;
+
+        [NoMagic]
         public String periodicity
         {
             get
@@ -41,6 +52,18 @@ namespace Notifier
         public Notice()
         {
             this.interval = new TimeSpan(24, 0, 0);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged(string propName)
+        {
+            var e = this.PropertyChanged;
+            if (e != null)
+            {
+                e(this, new PropertyChangedEventArgs(propName));
+                //MessageBox.Show(propName + ": " + this.title);
+            }
         }
 
         private String intervalPretty()
@@ -87,5 +110,5 @@ namespace Notifier
             int[] cases = { 2, 0, 1, 1, 1, 2 };
             return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[Math.Min(number % 10, 5)]];
         }
-}
+    }
 }

@@ -20,11 +20,15 @@ namespace Notifier
     public partial class NoticeWindow : Window
     {
         protected Notice Notice;
+        //protected List<Notice> Notices;
 
-        public NoticeWindow(Notice notice)
+        public NoticeWindow(Notice notice/*, ref List<Notice> notices*/)
         {
             InitializeComponent();
             this.Notice = notice;
+            this.DataContext = notice;
+
+            //this.Notices = notices;
 
             /*Binding bind = new Binding();
             bind.Source = this.NoticeTitle;
@@ -42,6 +46,20 @@ namespace Notifier
 
             /*DependencyProperty dp = DependencyProperty.Register("title", typeof(String), typeof(Notice));
             this.NoticeTitle.SetBinding(dp, new Binding("title"));*/
+    }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            App.Notices.Add(this.Notice);
+            this.Close();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Notice != null)
+            {
+                this.Notice.title = "Qwery...";
+            }
         }
     }
 }
